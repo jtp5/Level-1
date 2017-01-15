@@ -5,18 +5,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class SimplePainter extends JPanel implements MouseListener, KeyListener {
+public class SimplePainter extends JPanel implements MouseListener, KeyListener, MouseMotionListener {
 	private static final long serialVersionUID = 1L;
 	
 	JFrame window;
 	Color color = new Color(0, 0, 0);
-	
+	Random rand = new Random();
 	
 	ArrayList<Dot> dots = new ArrayList<Dot>();
 
@@ -27,7 +28,7 @@ public class SimplePainter extends JPanel implements MouseListener, KeyListener 
 	public SimplePainter() {
 		window = new JFrame();
 		window.add(this);
-		window.getContentPane().setPreferredSize(new Dimension(500, 500));
+		window.getContentPane().setPreferredSize(new Dimension(1920, 1080));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 		window.pack();
@@ -49,6 +50,7 @@ public class SimplePainter extends JPanel implements MouseListener, KeyListener 
 		// 5. Add a key to make the dot color random
 
 // 6. Implement the MouseMotionListener interface
+		window.addMouseMotionListener(this);
 		// 7. Draw a stream of dots when the mouse is clicked and dragged
 	}
 
@@ -59,7 +61,7 @@ public class SimplePainter extends JPanel implements MouseListener, KeyListener 
 	}
 
 	private void addDot(int x, int y) {
-		dots.add(new Dot(x - 25, y - 44, 50, 50, color));
+		dots.add(new Dot(x - 10, y - 34, 20, 20, color));
 	}
 
 	private void changeDotColor(Color c){
@@ -138,11 +140,28 @@ public class SimplePainter extends JPanel implements MouseListener, KeyListener 
 		if(e.getKeyCode() == KeyEvent.VK_SPACE){
 			changeDotColor(new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256)));
 		}
-
+		
+		if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+			changeDotColor(new Color(238, 238, 238));
+		}
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		addDot(e.getX(),e.getY());
+		repaint();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
