@@ -35,7 +35,6 @@ void draw(){
   fill(255,0,0);
   if(pipex == birdx){
    score++;
-   print("hi");
   }
   text(score, 15, 20);
 }
